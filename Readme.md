@@ -1,6 +1,7 @@
 # EventEmitter.js
 
 A simple pub/sub event system for use with Javascript projects. Framework agnostic and relatively small size.
+Currently supported in environments that support the 'import' syntax since thats my use case.
 
 Usage
 
