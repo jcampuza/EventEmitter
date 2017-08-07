@@ -1,8 +1,5 @@
-// Export PubSub in case a new instance is necessary for some reason -_-
 // loosely based off of: https://github.com/aurelia/event-aggregator/blob/master/src/index.js
-// Because I actually kinda liked their event aggregator
 
-// TODO: ADD SUPPORT FOR ASYNC HANDLERS
 class EventEmitter {
 
 	// EventLookups
@@ -37,12 +34,12 @@ class EventEmitter {
 
 	/**
 	 * Publish an async event, this allows us to chain .then, .catch, etc in order to detect when all events have completed
+	 * being handled
 	 * @param {string} event 
 	 * @param {any} data 
 	 */
 	publishAsync(event, data) {
 		let subscribers;
-		let i;
 		let asyncCallbacks;
 
 		if (!event) {
