@@ -1,70 +1,53 @@
 # EventEmitter.js
 
-A simple pub/sub event system for use with Javascript projects. Framework agnostic and relatively small size.
-Currently supported in environments that support the 'import' syntax since thats my use case.
+A simple pub/sub event bus for use with JS/TS projects.
 
 Usage
 
 ```javascript
+import { EventEmitter } from 'event-emitter';
 
-import EventEmitter from './EventEmitter';
+const emitter = new EventEmitter();
 
-EventEmitter.subscribe('log', (message) => {
-	console.log(message);
-})
+emitter.on('log', message => {
+  console.log(message);
+});
 
-EventEmitter.publish('log', 'Hi from publish');
+emitter.event('log', 'Hi from publish');
 // logs to the console -- 'Hi from publish'
-
 ```
 
-Also has support for handling asynchronous subscribers/publishing through the use of 
-EventEmitter.asyncPublish. There were use cases were I had to wait for subscribers that ran
-asynchronous code and run some code after all of the async code had resolved. 
-
-Usage
+Remember to dispose of your subscribers when they are no longer needed
 
 ```javascript
+import { EventEmitter } from 'event-emitter';
 
-import EventEmitter from './EventEmitter';
+const emitter = new emitter();
 
-function delayedHi(ms) {
-	return new Promise(resolve => {
-		window.setTimeout(() => {
-			console.log('hi')
-			return resolve();
-		}, ms)
-	})
-}
+const unsubscribe = emitter.on('log', () => {
+  console.log('hi');
+});
 
-EventEmitter.subscribe('log', () => {
-	return delayedHi(1000);
-})
+emitter.emit('log');
 
-EventEmitter.subscribe('log', () => {
-	return delayedHi(2000);
-})
-
-EventEmitter.publishAsync('log').then(() => {
-	console.log('goodbye');
-})
-// logs 'hi' after 1000ms
-// logs 'hi' after 2000ms
-// logs 'goodbye'
+unsubscribe();
 ```
 
-Remember to dispose of your subscribers when they are no longer needed :)
+You can also dispose of all subscribers on a namespace
 
 ```javascript
+import { EventEmitter } from 'event-emitter';
 
-import EventEmitter from './EventEmitter';
+const emitter = new EventEmitter();
+const log = () => console.log('hi');
 
-const subscriber = EventEmitter.subscribe('log', () => {
-	console.log('hi');
-})
+emitter.on('log', log);
+emitter.on('log', log);
+emitter.on('log', log);
+emitter.on('log', log);
 
-EventEmitter.publish('log');
+emitter.off('log');
 
-subscriber.dispose();
-
+emitter.emit('log');
+// No events are fired
 ```

@@ -1,0 +1,18 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": ["plugin:@typescript-eslint/recommended", "prettier/@typescript-eslint", "prettier"],
+  "rules": {
+    "comma-dangle": ["off"],
+    "@typescript-eslint/no-object-literal-type-assertion": 0,
+    "@typescript-eslint/explicit-function-return-type": 0,
+    "@typescript-eslint/explicit-member-accessibility": 0,
+    "@typescript-eslint/ban-ts-ignore": 0,
+    "no-restricted-syntax": ["error", "ForInStatement", "LabeledStatement", "WithStatement"],
+    "no-nested-ternary": "off",
+    "no-console": "error"
+  },
+  "env": {
+    "jest": true
+  }
+}

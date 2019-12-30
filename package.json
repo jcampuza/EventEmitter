@@ -1,0 +1,55 @@
+{
+  "name": "event-emitter",
+  "version": "1.0.0",
+  "description": "Event Emitter",
+  "source": "src/index.ts",
+  "main": "dist/index.ts",
+  "umd:main": "dist/index.umd.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "author": "Joseph Campuzano <campuzanojoseph@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "microbundle -o dist/",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "coverage": "jest --coverage",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx"
+  },
+  "keywords": [
+    "event",
+    "emitter",
+    "bus"
+  ],
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --ext .ts,.tsx,.js,.jsx",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "pre-push": "yarn test"
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^24.0.23",
+    "@typescript-eslint/eslint-plugin": "^2.11.0",
+    "@typescript-eslint/parser": "^2.11.0",
+    "babel-jest": "^24.9.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.5.0",
+    "microbundle": "^0.11.0",
+    "prettier": "^1.19.1",
+    "rxjs": "^6.5.4",
+    "ts-jest": "^24.2.0",
+    "typescript": "^3.7.3"
+  }
+}
